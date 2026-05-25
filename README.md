@@ -1,2 +1,0 @@
-# hectorsnb
-Personal website
