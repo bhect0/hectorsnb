@@ -150,29 +150,17 @@ function App() {
       </main>
 
       <footer className="site-footer">
+        <a href={`mailto:${EMAIL}`} className="footer-email">
+          {EMAIL}
+        </a>
         <div className="footer-social">
-          <a
-            href={LINKEDIN}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-          >
+          <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <FontAwesomeIcon icon={faLinkedinIn} />
           </a>
-          <a
-            href={GITHUB}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-          >
+          <a href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <FontAwesomeIcon icon={faGithub} />
           </a>
-          <a
-            href={MASTODON}
-            target="_blank"
-            rel="me noopener noreferrer"
-            aria-label="Mastodon"
-          >
+          <a href={MASTODON} target="_blank" rel="me noopener noreferrer" aria-label="Mastodon">
             <FontAwesomeIcon icon={faMastodon} />
           </a>
         </div>
