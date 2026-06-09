@@ -26,13 +26,11 @@ export function LangProvider({ children }) {
   // only changes when `lang` changes.
   const get_string = useMemo(() => makeGetString(lang), [lang])
 
-  // When the language changes: update <html lang>, the <title>, and the meta description.
+  // Keep <html lang> in sync. The <title> and meta description are handled in
+  // App, since they depend on the current route too.
   useEffect(() => {
     document.documentElement.lang = lang
-    document.title = get_string('title', 'meta')
-    const metaDesc = document.querySelector('meta[name="description"]')
-    if (metaDesc) metaDesc.setAttribute('content', get_string('description', 'meta'))
-  }, [lang, get_string])
+  }, [lang])
 
   return (
     <LangContext.Provider value={{ lang, setLang, get_string }}>

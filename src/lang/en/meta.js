@@ -1,5 +1,5 @@
 export default {
-  title: 'Héctor Benedicte — Web development, online stores and e-learning',
+  title: 'Héctor Benedicte — Moodle™ training platforms',
   description:
-    'Héctor Benedicte — development and maintenance of websites, online stores and e-learning platforms.',
+    'Héctor Benedicte — design, deployment and maintenance of Moodle™ online training platforms.',
 }

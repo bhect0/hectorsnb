@@ -3,5 +3,6 @@
 export default {
   services: 'Servicios',
   about: 'Sobre mí',
+  blog: 'Blog',
   contact: 'Contacto',
 }
