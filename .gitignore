@@ -1,0 +1,11 @@
+# This branch only tracks the built site (the contents of dist/).
+# Everything from the working tree that leaks over from main stays out.
+node_modules
+dist
+src
+public
+.vite
+.idea
+*.local
+*.log
+.DS_Store
