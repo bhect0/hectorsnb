@@ -6,6 +6,7 @@ import {
   faMastodon,
 } from '@fortawesome/free-brands-svg-icons'
 import logoSrc from './assets/logo.png'
+import { MoodleIcon } from './MoodleIcon.jsx'
 import { LangSwitcher } from './LangContext.jsx'
 import { useLang } from './useLang.js'
 import { Routes, Route, Link, useLocation } from 'react-router'
@@ -18,6 +19,7 @@ import './App.css'
 const GITHUB = 'https://github.com/bhect0'
 const LINKEDIN = 'https://www.linkedin.com/in/hectorbenedicte'
 const MASTODON = 'https://masto.nu/@bhect0'
+const MOODLE = 'https://moodle.org/user/profile.php?id=6569299'
 
 function App() {
   const { lang, get_string } = useLang()
@@ -85,6 +87,9 @@ function App() {
           </a>
           <a href={MASTODON} target="_blank" rel="me noopener noreferrer" aria-label="Mastodon">
             <FontAwesomeIcon icon={faMastodon} />
+          </a>
+          <a href={MOODLE} target="_blank" rel="noopener noreferrer" aria-label="Moodle">
+            <MoodleIcon />
           </a>
         </div>
         <p>© {new Date().getFullYear()} Héctor Benedicte | <a href={`mailto:${EMAIL}`} className="footer-email">{EMAIL}</a></p>

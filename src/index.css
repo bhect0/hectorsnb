@@ -1,4 +1,7 @@
 :root {
+  /* Light theme only: opts out of the browser's forced/auto dark mode */
+  color-scheme: only light;
+
   --color-text: #18181b;
   --color-muted: #52525b;
   --color-bg: #ffffff;

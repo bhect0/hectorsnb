@@ -1,16 +1,28 @@
+import { Link } from 'react-router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCode,
   faCartShopping,
   faUserGraduate,
 } from '@fortawesome/free-solid-svg-icons'
-import { faFaceSmile } from '@fortawesome/free-regular-svg-icons'
+import {
+  faFaceSmile,
+  faCalendarCheck,
+} from '@fortawesome/free-regular-svg-icons'
 import profileSrc from './assets/profile.jpg'
 import { useLang } from './useLang.js'
 import { EMAIL } from './email.js'
+import {
+  BADGES,
+  LINKEDIN_CERTIFICATIONS,
+  formatBadgeDate,
+} from './badges.js'
+import badgePlaceholder from './assets/badges/placeholder.svg'
 
 // Services: only the non-translatable metadata. Texts come from the
 // `services` component with identifiers `<key>_title` and `<key>_description`.
+const BOOKING = 'https://calendar.app.google/D5r7CHeCWLnTC55w7'
+
 const SERVICES = [
   { key: 'elearning', icon: faUserGraduate },
   { key: 'web', icon: faCode },
@@ -29,7 +41,7 @@ const SERVICES = [
 // const HASHTAGS = ['moodler', 'php', 'elearning', 'floss']
 
 export function Home() {
-  const { get_string } = useLang()
+  const { lang, get_string } = useLang()
 
   return (
     <main id="top">
@@ -99,6 +111,60 @@ export function Home() {
       </section>
       */}
 
+      <section id="badges" className="section">
+        <h2>{get_string('title', 'badges')}</h2>
+        <p className="badges-intro">
+          {get_string('intro_pre', 'badges')}
+          <Link to="/blog/open-badges">{get_string('intro_link', 'badges')}</Link>
+          {get_string('intro_post', 'badges')}
+        </p>
+        <ul className="badge-list">
+          {BADGES.map((badge) => {
+            const card = (
+              <>
+                <img
+                  src={badge.image ?? badgePlaceholder}
+                  alt=""
+                  className="badge-img"
+                  loading="lazy"
+                />
+                <span className="badge-text">
+                  <span className="badge-name">{badge.name}</span>
+                  <span className="badge-date">
+                    {badge.issuer} · {formatBadgeDate(badge.date, lang)}
+                  </span>
+                </span>
+              </>
+            )
+            return (
+              <li key={badge.name}>
+                {badge.url ? (
+                  <a
+                    href={badge.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="badge"
+                  >
+                    {card}
+                  </a>
+                ) : (
+                  <span className="badge">{card}</span>
+                )}
+              </li>
+            )
+          })}
+        </ul>
+        <p className="badges-more">
+          <a
+            href={LINKEDIN_CERTIFICATIONS}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {get_string('see_all', 'badges')}
+          </a>
+        </p>
+      </section>
+
       <section id="contact" className="section section-alt">
         <h2>{get_string('title', 'contact')}</h2>
         <p className="contact-intro">
@@ -106,7 +172,16 @@ export function Home() {
           <FontAwesomeIcon icon={faFaceSmile} className="intro-icon" />
         </p>
         <div className="contact-links">
-          <a href={`mailto:${EMAIL}`} className="btn btn-primary">
+          <a
+            href={BOOKING}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+          >
+            <FontAwesomeIcon icon={faCalendarCheck} className="btn-icon" />
+            {get_string('book', 'contact')}
+          </a>
+          <a href={`mailto:${EMAIL}`} className="btn btn-secondary">
             {EMAIL}
           </a>
         </div>

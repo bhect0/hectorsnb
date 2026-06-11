@@ -170,6 +170,10 @@
   color: var(--color-accent);
 }
 
+.btn-icon {
+  margin-right: 0.5rem;
+}
+
 /* ====== Generic sections ====== */
 .section {
   padding: 5rem 2rem;
@@ -223,6 +227,77 @@
 
 .section-alt .card {
   background: var(--color-bg);
+}
+
+/* ====== Badges ====== */
+.badges-intro {
+  max-width: var(--container);
+  margin: -1.5rem auto 2rem;
+  color: var(--color-muted);
+  font-size: 1.1rem;
+}
+
+.badge-list {
+  list-style: none;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 1.5rem 1.25rem;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+a.badge:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 12px 24px -12px rgba(61, 46, 124, 0.25);
+  transform: translateY(-4px);
+  text-decoration: none;
+}
+
+.badge-img {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+}
+
+.badge-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.badge-name {
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+a.badge:hover .badge-name {
+  color: var(--color-accent);
+}
+
+.badge-date {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.badges-more {
+  max-width: var(--container);
+  margin: 2rem auto 0;
 }
 
 .card h3 {
