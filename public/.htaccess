@@ -1,0 +1,7 @@
+# SPA fallback: las rutas de React Router (/blog, /blog/<slug>...) no existen
+# como archivos en el servidor, así que cualquier petición que no apunte a un
+# archivo o directorio real se reescribe a index.html y el router decide.
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
