@@ -76,9 +76,6 @@ function App() {
       </Routes>
 
       <footer className="site-footer">
-        <a href={`mailto:${EMAIL}`} className="footer-email">
-          {EMAIL}
-        </a>
         <div className="footer-social">
           <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <FontAwesomeIcon icon={faLinkedinIn} />
@@ -90,7 +87,7 @@ function App() {
             <FontAwesomeIcon icon={faMastodon} />
           </a>
         </div>
-        <p>© {new Date().getFullYear()} Héctor Benedicte</p>
+        <p>© {new Date().getFullYear()} Héctor Benedicte | <a href={`mailto:${EMAIL}`} className="footer-email">{EMAIL}</a></p>
       </footer>
     </>
   )

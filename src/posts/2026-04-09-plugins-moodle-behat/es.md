@@ -1,23 +1,25 @@
-# Tus plugins te están pidiendo Behat (y aún no lo sabes)
+# Behat para probar tus plugins de Moodle™
 
-Hace unas semanas presenté en la [MoodleMoot España](https://moodlemoot.es/mod/callforpaper/view.php?rid=59) una charla con este mismo título. La idea era quitarle el miedo a Behat, la herramienta con la que Moodle™ prueba sus plugins «como lo haría un usuario de verdad». Aquí dejo un resumen de lo que conté, por si te sirve para dar el primer paso.
+Hace unas semanas presenté en la [MoodleMoot España 2026](https://moodlemoot.es/mod/callforpaper/view.php?rid=59) una charla sobre el framework de testing Behat. La idea era promover el uso de Behat entre los asistentes y eliminar ciertas posibles barreras mentales como; "Behat es algo que solo se usa en el core de Moodle" o "solamente sirve para plugins que van a ser publicados". Podemos definir Behat como: una herramienta para probar nuestros desarrollos «como lo haría un usuario de verdad» de manera automatizada.
+
+Aquí dejo un resumen de lo que conté, espero que te sirva para dar el primer paso.
 
 ## ¿Qué es Behat?
 
-Behat es un *framework* de PHP para escribir **pruebas funcionales** siguiendo la filosofía BDD (*Behavior Driven Development*). Es la implementación en PHP de [Cucumber](https://cucumber.io/), y lo bueno es que los tests se escriben en un lenguaje casi natural: cualquiera puede leer un escenario y entender qué se está comprobando, aunque no sepa programar.
+Behat es un *framework* de PHP para escribir **pruebas funcionales** siguiendo la filosofía BDD (*Behavior Driven Development*). Es la implementación en PHP de [Cucumber](https://cucumber.io/), y lo bueno es que los tests se escriben en un lenguaje casi natural: cualquiera puede leer un escenario y entender qué se está comprobando, aunque su rol principal no sea el de programador.
 
 ## PHPUnit vs Behat
 
-En Moodle conviven dos mundos de testing y conviene no confundirlos:
+En Moodle, tenemos dos frameworks de testing principalmente. Es importante entender sus diferencias para sacar su máximo potencial.
 
-| | PHPUnit | Behat |
+| | [PHPUnit](https://moodledev.io/general/development/tools/phpunit) | [Behat](https://moodledev.io/general/development/tools/behat) |
 | --- | --- | --- |
 | Enfoque | TDD | BDD |
 | Tipo | Pruebas unitarias | Pruebas funcionales |
 | Granularidad | 1 test → 1 función de código | 1 test → 1 funcionalidad |
 | Nivel | Bajo nivel, lo leen los programadores | Alto nivel, legible por cualquiera |
 
-No compiten: se complementan. PHPUnit comprueba que tu lógica funciona; Behat comprueba que la funcionalidad se comporta como espera el usuario final.
+No compiten. Se complementan. PHPUnit comprueba que tu código se ejecuta sin errores, mientras que Behat comprueba que la funcionalidad se comporta como espera el usuario final.
 
 ## Ya usas BDD sin darte cuenta
 
@@ -42,10 +44,10 @@ Mi receta para empezar son cuatro preguntas:
 
 1. **¿Qué quiero probar?** El funcionamiento general, las funcionalidades clave, los mensajes de éxito y error, y los casos raros.
 2. **¿Cómo empiezo?** Creas el fichero `<plugin>/tests/behat/mi_primer_test.feature` y escribes Gherkin.
-3. **¿Qué pasos existen ya?** En `admin/tool/behat` (Definiciones de etapas) tienes un buscador con todos los steps disponibles. No reinventes la rueda.
+3. **¿Qué pasos existen ya?** En `admin/tool/behat` (Definiciones de etapas) tienes un buscador con todos los steps disponibles. ¡No reinventes la rueda!
 4. **Read the docs!** Lee los tests de plugins parecidos como si fuera tu novela favorita.
 
-Un escenario real, replicado del propio core, queda así de legible:
+Un escenario real, del propio core, es así de legible:
 
 ```gherkin
 @block @block_calendar_upcoming @javascript
@@ -55,7 +57,7 @@ Feature: Añadir el bloque de Próximos eventos en un curso,
   Background:
     Given the following "users" exist:
       | username  | firstname | lastname  | email                | idnumber |
-      | profesor1 | Héctor    | Benedicte | hector@eligeapps.com | p1       |
+      | profesor1 | Héctor    | Benedicte | hector@hectorsnb.com | p1       |
     And the following "blocks" exist:
       | blockname         | contextlevel | reference | pagetypepattern | defaultregion |
       | calendar_upcoming | System       | 1         | site-index      | side-pre      |
@@ -71,6 +73,8 @@ Feature: Añadir el bloque de Próximos eventos en un curso,
     And I am on site homepage
     Then I should see "MoodleMoot España 2026" in the "Upcoming events" "block"
 ```
+
+Puedes verlo tú mismo si no me crees: [public/blocks/calendar_upcoming/tests/behat/block_calendar_upcoming_frontpage.feature](https://github.com/moodle/moodle/blob/main/public/blocks/calendar_upcoming/tests/behat/block_calendar_upcoming_frontpage.feature)
 
 ## Montando el entorno de pruebas
 
@@ -105,13 +109,13 @@ Cuando los pasos y los datos de serie se te quedan cortos, Moodle te deja amplia
 - **Entidades propias**: un *data generator* (`behat_<componente>_generator`) te permite crear con un `Given` tus propios objetos o registros en base de datos.
 - **Steps propios**: si ninguna frase existente encaja, defines la tuya en una clase `behat_<plugin>.php` que, por debajo, ejecuta el código PHP que tú quieras.
 
-## Buenas prácticas (y accesibilidad)
+## Buenas prácticas
 
 - Prueba **una sola funcionalidad por Scenario**.
-- Evita los selectores CSS y XPath siempre que puedas.
+- Evita los selectores CSS y XPath siempre que puedas. Recuerda que el objetivo es escribir tests legibles por todos.
 - Mantén el orden en `/tests/behat`: nombres descriptivos y una carpeta `fixtures`.
 - Evita pasos innecesarios: llega a tu destino por el camino más corto.
-- Y no te olvides de la accesibilidad: con `And the page should meet accessibility standards` puedes comprobar el cumplimiento de **WCAG 2.1 nivel AA**.
+- [Y no te olvides de la accesibilidad](https://moodledev.io/general/development/policies/accessibility/testing#accessibility-tests-using-behat): con `And the page should meet accessibility standards` puedes comprobar el cumplimiento de **WCAG 2.1 nivel AA**.
 
 ## Aliados y recursos
 
@@ -121,6 +125,6 @@ No estás solo en esto. Algunas herramientas que mencioné: `admin/tool/behat`, 
 
 Sí, Behat tiene una curva de aprendizaje inicial. Pero a medio plazo esas horas se recompensan con creces: detecta regresiones automáticamente y te ahorra muchos sustos inesperados. Tus plugins te lo están pidiendo. 😉
 
-¡Gracias, #moodlers!
+#moodler #testing #bdd #behat #phpunit
 
 ---
